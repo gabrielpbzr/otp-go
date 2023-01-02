@@ -1,6 +1,6 @@
 OUTPUT=bin/otp
 
-all: clean build
+all: clean build test
 
 build: clean
 	mkdir bin

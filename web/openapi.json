@@ -1,0 +1,146 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "OTP Generator",
+    "description": "HTTP API for generating One Time Passwords",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "post": {
+        "description": "Generate a new OTP",
+        "operationId": "generateOTP",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "secret": {
+                    "description": "User secret key, encoded in Base32 form"
+                  }
+                },
+                "required": [
+                  "secret"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password generated",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "6 digit password valid for 30 seconds",
+                  "example": "687952"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request issued",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Error cause",
+                  "example": "Secret is required"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Error cause"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/encode": {
+      "get": {
+        "operationId": "encodeSecret",
+        "description": "Encode a string to base 32",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "secret": {
+                    "type": "string",
+                    "description": "Secret string to be encoded in base 32"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Encoded string",
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "type": "string",
+                  "description": "Encoded string in base 32 form"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request issued",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Error description"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "description": "Error cause",
+                  "example": "Secret is required"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi": {
+      "get": {
+        "description": "Show Open API Docs",
+        "operationId": "showOpenAPIDocs",
+        "responses": {
+          "200": {
+            "description": "Show document API",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "JSON document containing API definition"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

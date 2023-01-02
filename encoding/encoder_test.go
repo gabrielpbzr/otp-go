@@ -1,4 +1,4 @@
-package main
+package encoding
 
 import (
 	"fmt"

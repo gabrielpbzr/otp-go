@@ -1,9 +1,12 @@
-package main
+package web
 
 import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/gabrielpbzr/otp-go/encoding"
+	"github.com/gabrielpbzr/otp-go/password"
 )
 
 func SetWebHandlers(mux *http.ServeMux) {
@@ -26,7 +29,7 @@ func generateOtpHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	otp, err := GenerateOTP([]byte(secret))
+	otp, err := password.GenerateOTP([]byte(secret))
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -40,5 +43,5 @@ func generateOtpHandler(w http.ResponseWriter, r *http.Request) {
 func encodeSecretHandler(w http.ResponseWriter, r *http.Request) {
 	secret := r.URL.Query().Get("secret")
 	log.Printf("Secret %s", secret)
-	fmt.Fprintln(w, EncodeSecret(secret))
+	fmt.Fprintln(w, encoding.EncodeSecret(secret))
 }

@@ -3,12 +3,14 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/gabrielpbzr/otp-go/web"
 )
 
 func main() {
 	mux := http.NewServeMux()
 
-	SetWebHandlers(mux)
+	web.SetWebHandlers(mux)
 
 	msg := "Server is up and running on TCP port 3000"
 	log.Println(msg)
